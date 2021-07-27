@@ -1,4 +1,6 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:tabletop_scanner/models/game.dart';
 import 'package:tabletop_scanner/screens/games.dart';
@@ -19,6 +21,33 @@ class _GameScreenState extends State<GameScreen> {
   final _key = GlobalKey<FormState>();
   final _title = "Game";
   bool _isSaving = false;
+  bool _camerasAvailable = false;
+
+  void cameraIsAvailable() {
+    availableCameras().then((availableCameras) {
+      var cameras = availableCameras;
+      if (cameras.length > 0) {
+        setState(() {
+          _camerasAvailable = true;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    cameraIsAvailable();
+  }
+
+  Future<void> scanGameBarCode() async {
+    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+        '#000000', "Cancel", true, ScanMode.BARCODE);
+
+    print('CODE READ:' + barcodeScanRes);
+
+    widget.game.upc = barcodeScanRes;
+  }
 
   Future<void> save(BuildContext context) async {
     if (_key.currentState!.validate()) {
@@ -84,6 +113,16 @@ class _GameScreenState extends State<GameScreen> {
                           keyboardType: TextInputType.text,
                           validator: validateRequiredText,
                           onChanged: (String val) => widget.game.upc = val),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      if (_camerasAvailable)
+                        ButtonFormLarge(
+                          buttonText: "Scan Barcode",
+                          method: () => scanGameBarCode(),
+                          status: true,
+                          reverseColors: true,
+                        ),
                       const SizedBox(
                         height: 40,
                       ),
