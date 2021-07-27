@@ -10,6 +10,7 @@ class Game {
 
   Game({this.id, required this.name, required this.upc});
 
+  // Adding comparable to allow comparison operators for dropdown validation
   @override
   bool operator ==(other) {
     return (other is Game) && other.name == name && other.upc == upc;

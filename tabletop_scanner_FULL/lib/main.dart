@@ -66,8 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
         '#000000', "Cancel", true, ScanMode.BARCODE);
 
     print('CODE READ:' + barcodeScanRes);
-    // flutter: CODE READ:0300650429153
-    // flutter: CODE READ:0311917144955
 
     Game? game = await Game.find(barcodeScanRes);
     if (game == null) {
@@ -102,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> scanGame() async {
+    // Are there accessible cameras?
     availableCameras().then((availableCameras) {
       var cameras = availableCameras;
       if (cameras.length > 0) {
