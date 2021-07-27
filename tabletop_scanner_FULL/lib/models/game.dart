@@ -10,6 +10,11 @@ class Game {
 
   Game({this.id, required this.name, required this.upc});
 
+  @override
+  bool operator ==(other) {
+    return (other is Game) && other.name == name && other.upc == upc;
+  }
+
   Map<String, dynamic> toMap() {
     return {'id': id, 'name': name, 'upc': upc};
   }

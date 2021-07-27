@@ -44,6 +44,16 @@ class _RentalScreenState extends State<RentalScreen> {
     _users = await User.loadAll();
 
     setState(() {
+      if (widget.rental.game == null) {
+        widget.rental.game = _games[0];
+        widget.rental.gameId = _games[0].id;
+      }
+
+      if (widget.rental.user == null) {
+        widget.rental.user = _users[0];
+        widget.rental.userId = _users[0].id;
+      }
+
       _isSaving = false;
     });
   }
@@ -102,6 +112,7 @@ class _RentalScreenState extends State<RentalScreen> {
   }
 
   Widget chooseUsers() {
+    // TODO: Fix if not at least one user added to app
     return DropdownButton(
       underline: SizedBox(),
       value: widget.rental.user,

@@ -59,7 +59,7 @@ class _MenuScreenState extends State<MenuScreen> {
             child: SingleChildScrollView(
                 child: Column(children: [
               ListTile(
-                title: const Text('Home'),
+                title: const Text('Rentals'),
                 onTap: () => openScreen(MyHomePage(), context),
               ),
               ListTile(

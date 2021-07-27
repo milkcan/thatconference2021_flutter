@@ -1,4 +1,5 @@
 enum IdType {
+  None,
   DriversLicense,
   ConferenceBadge,
 }
@@ -6,6 +7,8 @@ enum IdType {
 extension IdTypeExtension on IdType {
   String get name {
     switch (this) {
+      case IdType.None:
+        return 'None';
       case IdType.DriversLicense:
         return 'Driver\'s License';
       case IdType.ConferenceBadge:
