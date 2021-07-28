@@ -171,9 +171,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                     padding: EdgeInsets.only(right: 20.0),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () => openScreen(
+                        RentalScreen(rental: Rental(start: DateTime.now())),
+                        context,
+                      ),
                       child: Icon(
-                        Icons.search,
+                        Icons.add,
                         size: 26.0,
                       ),
                     ))
