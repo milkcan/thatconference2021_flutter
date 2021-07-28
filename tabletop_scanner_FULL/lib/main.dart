@@ -91,8 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void returnGame(Rental rental) {
+  void returnGame(Rental rental) async {
     rental.end = DateTime.now();
+    rental.game = await Game.load(rental.gameId!);
     Rental.save(rental);
     loadRentals();
     toastSuccess(
