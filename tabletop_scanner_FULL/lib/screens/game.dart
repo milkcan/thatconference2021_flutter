@@ -22,6 +22,7 @@ class _GameScreenState extends State<GameScreen> {
   final _title = "Game";
   bool _isSaving = false;
   bool _camerasAvailable = false;
+  final txtUPC = TextEditingController();
 
   void cameraIsAvailable() {
     availableCameras().then((availableCameras) {
@@ -38,6 +39,7 @@ class _GameScreenState extends State<GameScreen> {
   void initState() {
     super.initState();
     cameraIsAvailable();
+    txtUPC.text = widget.game.upc;
   }
 
   Future<void> scanGameBarCode() async {
@@ -46,7 +48,10 @@ class _GameScreenState extends State<GameScreen> {
 
     print('CODE READ:' + barcodeScanRes);
 
-    widget.game.upc = barcodeScanRes;
+    setState(() {
+      txtUPC.text = barcodeScanRes;
+      widget.game.upc = barcodeScanRes;
+    });
   }
 
   Future<void> save(BuildContext context) async {
@@ -93,6 +98,7 @@ class _GameScreenState extends State<GameScreen> {
                                 borderSide: BorderSide(color: Colors.grey)),
                             labelText: '*Name',
                           ),
+                          autocorrect: false,
                           initialValue: widget.game.name,
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.text,
@@ -102,13 +108,13 @@ class _GameScreenState extends State<GameScreen> {
                         height: 20,
                       ),
                       TextFormField(
+                          controller: txtUPC,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey)),
                             labelText: '*UPC',
                           ),
                           autocorrect: false,
-                          initialValue: widget.game.upc,
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.text,
                           validator: validateRequiredText,

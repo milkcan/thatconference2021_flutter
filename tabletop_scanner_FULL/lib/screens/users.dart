@@ -99,7 +99,7 @@ class _UsersScreenState extends State<UsersScreen> {
                         id: null,
                         firstName: "",
                         lastName: "",
-                        idType: IdType.DriversLicense,
+                        idType: IdType.ConferenceBadge,
                         idText: '')),
                 context);
           },

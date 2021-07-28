@@ -166,6 +166,17 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Scaffold(
             appBar: AppBar(
               title: const Text("Tabletop Scanner"),
+              actions: <Widget>[
+                Padding(
+                    padding: EdgeInsets.only(right: 20.0),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Icon(
+                        Icons.search,
+                        size: 26.0,
+                      ),
+                    ))
+              ],
             ),
             drawer: const MenuScreen(),
             body: Column(
